@@ -1,6 +1,6 @@
-Scenario-1 
+iScenario-1 
 This is your command line, a safe place to practice & complete the scenario
-
+//This is rasmi's scenario.
 $ git init
 Initialized empty Git repository in /home/scrapbook/tutorial/.git/
 $ git status
