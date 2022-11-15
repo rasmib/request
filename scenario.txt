@@ -1,0 +1,208 @@
+Scenario-1 
+This is your command line, a safe place to practice & complete the scenario
+
+$ git init
+Initialized empty Git repository in /home/scrapbook/tutorial/.git/
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        hello-world.js
+
+nothing added to commit but untracked files present (use "git add" to track)
+$ git add hello-world.js 
+$ git commit -m"message"
+[master (root-commit) 5d76929] message
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hello-world.js
+$ touch .gitignore
+$ vi  .gitignore
+$ git add .gitignore
+$ git commit -m"message"
+[master ef0836b] message
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .gitignore
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+Scenario 2 COMMITING CHANGES
+
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   committed.js
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        untracked.js
+$ git diff
+ESC[1mdiff --git a/committed.js b/committed.jsESC[m
+ESC[1mindex 12e7e7c..fc77969 100644ESC[m
+ESC[1m--- a/committed.jsESC[m
+ESC[1m+++ b/committed.jsESC[m
+ESC[36m@@ -1 +1 @@ESC[m
+ESC[31m-console.log("Committed File")ESC[m
+ESC[32m+ESC[mESC[32mconsole.log("Demostrating changing a committed file")ESC[m
+$ git add committed.js
+$ git diff 
+$ git diff --staged
+ESC[1mdiff --git a/committed.js b/committed.jsESC[m
+ESC[1mindex 12e7e7c..fc77969 100644ESC[m
+ESC[1m--- a/committed.jsESC[m
+ESC[1m+++ b/committed.jsESC[m
+ESC[36m@@ -1 +1 @@ESC[m
+ESC[31m-console.log("Committed File")ESC[m
+ESC[32m+ESC[mESC[32mconsole.log("Demostrating changing a committed file")ESC[m
+$ git log --pretty=format:"%h %an %ar -%s"
+679e1e5 Katacoda Scenario 29 seconds ago -Changed the output message in committed.js
+2072cbb Katacoda Scenario 3 minutes ago -Initial Commit
+$ git show
+ESC[33mcommit 679e1e5ad6795a77bf81f41a8057e013cd8ff6dcESC[mESC[33m (ESC[mESC[1;36mHEAD -> ESC[mESC[1;32mmaste
+Author: Katacoda Scenario <scenario@katacoda.com>
+Date:   Thu Nov 10 16:53:25 2022 +0000
+
+    Changed the output message in committed.js
+
+***************************************************************************************************
+
+
+Scenario 4-UNDOING CHANGES
+
+$git checkout
+M       staging.txt
+git reset
+Unstaged changes after reset:
+M       staging.txt
+$ git reset --hard
+HEAD is now at 13f16a8 New File
+$ git revert HEAD --no-edit
+[master ebc544d] Revert "Commit To Revert"
+ Date: Thu Nov 10 16:41:41 2022 +0000
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+$ git revert HEAD...HEAD~2 --no-edit
+[master da77111] Revert "Revert "Commit To Revert""
+ Date: Thu Nov 10 16:43:33 2022 +0000
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 3f3ed95] Revert "Commit To Revert"
+ Date: Thu Nov 10 16:43:33 2022 +0000
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+************************************************************************
+
+Scenario 7 FINDING BUGS
+
+$ git diff HEAD~2 HEAD
+ESC[1mdiff --git a/list.html b/list.htmlESC[m
+ESC[1mindex 96e99d0..9f53aec 100644ESC[m
+ESC[1m--- a/list.htmlESC[m
+ESC[1m+++ b/list.htmlESC[m
+ESC[36m@@ -2,4 +2,6 @@ESC[m
+ <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>ESC[m
+ <li>Aliquam tincidunt mauris eu risus.</li>ESC[m
+ <li>Vestibulum auctor dapibus neque.</li>ESC[m
+ESC[32m+ESC[mESC[32m<li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a
+ESC[32m+ESC[mESC[32m<li>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate 
+ </ul>ESC[m
+$ git log
+ESC[33mcommit 9c50971deea215fba8c772e56acb171b4ba28914ESC[mESC[33m (ESC[mESC[1;36mHEAD -> ESC[mESC[1;32mmaste
+Author: Katacoda Scenario <scenario@katacoda.com>
+Date:   Thu Nov 10 16:46:02 2022 +0000
+
+    Final Item
+
+ESC[33mcommit 7b770c8e185d287e5df551c36bf604c9084e8c3bESC[m
+Author: Katacoda Scenario <scenario@katacoda.com>
+Date:   Thu Nov 10 16:46:02 2022 +0000
+
+    New Item
+
+ESC[33mcommit dc809fc5d44d03674f423a81bc57aab88c1230f2ESC[m
+Author: Katacoda Scenario <scenario@katacoda.com>
+Date:   Thu Nov 10 16:46:02 2022 +0000
+
+    Initial commit of the list
+$ 
+$ git log --oneline
+ESC[33m9c50971ESC[mESC[33m (ESC[mESC[1;36mHEAD -> ESC[mESC[1;32mmasterESC[mESC[33m)ESC[m Final Item
+ESC[33m7b770c8ESC[m New Item
+ESC[33mdc809fcESC[m Initial commit of the list
+$ git log -p
+ESC[33mcommit 9c50971deea215fba8c772e56acb171b4ba28914ESC[mESC[33m (ESC[mESC[1;36mHEAD -> ESC[mESC[1;32mmaste
+Author: Katacoda Scenario <scenario@katacoda.com>
+Date:   Thu Nov 10 16:46:02 2022 +0000
+
+    Final Item
+
+ESC[1mdiff --git a/list.html b/list.htmlESC[m
+ESC[1mindex def310d..9f53aec 100644ESC[m
+ESC[1m--- a/list.htmlESC[m
+ESC[1m+++ b/list.htmlESC[m
+ESC[36m@@ -3,4 +3,5 @@ESC[m
+ <li>Aliquam tincidunt mauris eu risus.</li>ESC[m
+ <li>Vestibulum auctor dapibus neque.</li>ESC[m
+ <li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a.</li>ESC[m
+ESC[32m+ESC[mESC[32m<li>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate 
+ </ul>ESC[m
+
+ESC[33mcommit 7b770c8e185d287e5df551c36bf604c9084e8c3bESC[m
+Author: Katacoda Scenario <scenario@katacoda.com>
+Date:   Thu Nov 10 16:46:02 2022 +0000
+
+    New Item
+
+ESC[1mdiff --git a/list.html b/list.htmlESC[m
+ESC[1mindex 96e99d0..def310d 100644ESC[m
+ESC[1m--- a/list.htmlESC[m
+ESC[1m+++ b/list.htmlESC[m
+ESC[36m@@ -2,4 +2,5 @@ESC[m
+ <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>ESC[m
+ <li>Aliquam tincidunt mauris eu risus.</li>ESC[m
+ <li>Vestibulum auctor dapibus neque.</li>ESC[m
+ESC[32m+ESC[mESC[32m<li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a
+ </ul>ESC[m
+
+$ 
+$ git log -p -n 2
+ESC[33mcommit 9c50971deea215fba8c772e56acb171b4ba28914ESC[mESC[33m (ESC[mESC[1;36mHEAD -> ESC[mESC[1;32mmaste
+Author: Katacoda Scenario <scenario@katacoda.com>
+Date:   Thu Nov 10 16:46:02 2022 +0000
+
+    Final Item
+
+ESC[1mdiff --git a/list.html b/list.htmlESC[m
+ESC[1mindex def310d..9f53aec 100644ESC[m
+ESC[1m--- a/list.htmlESC[m
+ESC[1m+++ b/list.htmlESC[m
+ESC[36m@@ -3,4 +3,5 @@ESC[m
+ <li>Aliquam tincidunt mauris eu risus.</li>ESC[m
+ <li>Vestibulum auctor dapibus neque.</li>ESC[m
+ <li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a.</li>ESC[m
+ESC[32m+ESC[mESC[32m<li>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate 
+ </ul>ESC[m
+
+ESC[33mcommit 7b770c8e185d287e5df551c36bf604c9084e8c3bESC[m
+Author: Katacoda Scenario <scenario@katacoda.com>
+Date:   Thu Nov 10 16:46:02 2022 +0000
+
+    New Item
+
+ESC[1mdiff --git a/list.html b/list.htmlESC[m
+ESC[1mindex 96e99d0..def310d 100644ESC[m
+ESC[1m--- a/list.htmlESC[m
+ESC[1m+++ b/list.htmlESC[m
+ESC[36m@@ -2,4 +2,5 @@ESC[m
+ <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>ESC[m
+ <li>Aliquam tincidunt mauris eu risus.</li>ESC[m
+ <li>Vestibulum auctor dapibus neque.</li>ESC[m
+ESC[32m+ESC[mESC[32m<li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a
+ </ul>ESC[m
+
